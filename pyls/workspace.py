@@ -78,7 +78,10 @@ class Workspace(object):
         Since the workspace root may not be the root of the Python project we instead
         append the closest parent directory containing a setup.py file.
         """
-        files = config.find_parents(self._root_path, path, ['setup.py']) or []
+        files = config.find_parents(
+            self._root_path, path,
+            ['setup.py', 'setup.cfg', 'requirements.txt', 'Pipenv', 'tox.ini']
+        ) or []
         path = [os.path.dirname(setup_py) for setup_py in files]
 
         # Check to see if we're in a virtualenv
